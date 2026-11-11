@@ -1,0 +1,16 @@
+/* CSS hanya untuk warna navy. Layout, tombol, hover, dan form memakai Bootstrap.
+   --bs-bg = warna latar; --bs-fg = warna teks.
+   Ubah kode warna di bawah jika ingin mengganti tema. */
+:root {
+  --bs-bg-body: #0f172a;    /* Latar halaman */
+  --bs-bg-1: #020617;       /* Header dan footer */
+  --bs-bg-2: #162238;       /* Kartu akun */
+  --bs-fg-body: #f8fafc;    /* Teks utama */
+  --bs-fg-2: #cbd5e1;      /* Teks pendukung */
+  --bs-border-color: #334155;
+}
+
+/* Mengikuti tinggi layar HP, termasuk perubahan tinggi toolbar browser. */
+body {
+  min-height: 100dvh;
+}
