@@ -18,21 +18,22 @@
             <a href="index.html">&larr; Kembali ke Beranda</a>
             <h1 class="text-2xl fw-bold mt-7 mb-5" id="account-title">Selamat datang kembali.</h1>
             <p class="fg-2 mb-7">Temukan tontonan dan bagikan pendapatmu.</p>
-            <!-- Tombol kirim masih disabled karena belum ada backend akun. -->
-            <form>
-          <div class="mb-5">
-            <label class="form-label" for="username">Username</label>
-            <input class="form-control" id="username" name="username" type="text" autocomplete="username" required>
-          </div>
-          <div class="mb-5">
-            <label class="form-label" for="password">Password</label>
-            <!-- input-group menyatukan input dan tombol Lihat dari Bootstrap. -->
-            <div class="input-group">
-              <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required>
-              <button class="btn-outline theme-secondary input-group-btn password-toggle" type="button" aria-controls="password" aria-pressed="false" aria-label="Lihat password">Lihat</button>
-            </div>
-          </div>
-              <button class="btn-solid theme-primary w-100 mt-3" type="submit" disabled>Masuk</button>
+            <!-- Kirim username dan password ke PHP lewat POST.
+                 Buka halaman lewat localhost agar proses PHP dapat dijalankan. -->
+            <form action="login_proses.php" method="post">
+              <div class="mb-5">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" id="username" name="username" type="text" autocomplete="username" required>
+              </div>
+              <div class="mb-5">
+                <label class="form-label" for="password">Password</label>
+                <!-- Tombol Lihat tidak mengirim form karena type="button". -->
+                <div class="input-group">
+                  <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required>
+                  <button class="btn-outline theme-secondary input-group-btn password-toggle" type="button" aria-controls="password" aria-pressed="false" aria-label="Lihat password">Lihat</button>
+                </div>
+              </div>
+              <button class="btn-solid theme-primary w-100 mt-3" type="submit">Masuk</button>
             </form>
             <p class="mb-0">Belum punya akun? <a href="register.html">Daftar sekarang</a></p>
           </div>
