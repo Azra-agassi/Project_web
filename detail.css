@@ -1,0 +1,84 @@
+/* Font Inter sama dengan Figma. Font disimpan lokal; Bootstrap dimuat melalui CDN. */
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/sinempak/inter-400.ttf") format("truetype"); }
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/sinempak/inter-500.ttf") format("truetype"); }
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/sinempak/inter-600.ttf") format("truetype"); }
+@font-face { font-family: Inter; font-style: normal; font-weight: 700; font-display: swap; src: url("assets/sinempak/inter-700.ttf") format("truetype"); }
+
+/* Variabel tema Bootstrap: satu perubahan di sini berlaku untuk seluruh halaman.
+   Bootstrap tetap menangani grid, flex, spacing, tombol, border, dan dialog. */
+[data-bs-theme="dark"] {
+  --bs-body-font-family: Inter, system-ui, sans-serif;
+  --bs-bg-body: #0f172a;
+  --bs-bg-1: #020617;
+  --bs-bg-2: #1e293b;
+  --bs-fg-body: #cbd5e1;
+  --bs-fg-2: #94a3b8;
+  --bs-fg-3: #64748b;
+  --bs-warning-fg-emphasis: #fbbf24;
+  --bs-border-color: #1e293b;
+}
+
+/* Identitas logo sama dengan halaman awal: font sistem 26px, tebal, titik biru.
+   Navbar melebar penuh dengan padding 24px di HP dan 48px di desktop. */
+.brand-header { background-color: #020617; border-color: #334155 !important; }
+.brand-container { padding: 16px 24px; }
+.navbar-brand {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.5;
+  color: #f8fafc;
+}
+.brand-dot { color: oklch(68% .19201 240); }
+@media (min-width: 992px) {
+  .brand-container { padding-inline: 48px; }
+}
+
+/* Banner 240px. object-fit-cover dari Bootstrap memotong gambar di tengah.
+   Gradasi dibuat dengan CSS karena Bootstrap tidak memiliki gradasi ini. */
+.movie-banner { height: 240px; background-color: #020617; }
+.banner-fade { background: linear-gradient(to bottom, transparent 40%, #0f172a 100%); }
+
+/* Ukuran ini berasal dari Figma: kontainer 960px, padding 16px, jarak 32px.
+   max-width memastikan kontainer tetap mengecil ketika layar lebih sempit. */
+.movie-container { max-width: 960px; padding: 32px 16px 88px; gap: 32px; }
+.movie-poster { width: 180px; height: 270px; border-color: #334155 !important; }
+.movie-title { font-size: 30px; line-height: 36px; letter-spacing: -.75px; }
+.section-title { font-size: 22px; line-height: 33px; }
+.synopsis { max-width: 768px; line-height: 26px; }
+.cast-name, .review-name { font-size: 14px; line-height: 20px; }
+.cast-role, .review-date { font-size: 12px; line-height: 16px; }
+.review-text { font-size: 14px; line-height: 22.75px; }
+
+/* Lebar form dan dropdown sesuai desain; max-width mencegah overflow di HP. */
+.review-form { max-width: 672px; }
+.rating-select { width: 256px; max-width: 100%; }
+.form-label { margin-bottom: 6px; }
+.form-control {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+}
+.form-control { min-height: 86px; padding: 12px; }
+.form-control::placeholder { color: #64748b; opacity: 1; }
+/* Gunakan ikon dropdown asli dari Figma sebagai dekorasi select native. */
+select.form-control { background-image: url("assets/sinempak/chevron.svg"); background-size: 21px 21px; min-height: 38px; padding-block: 8px; }
+
+/* Cukup mengatur variabel komponen; hover/focus/active tetap milik Bootstrap. */
+.btn-solid, .btn-outline { --bs-btn-font-size: 14px; --bs-btn-line-height: 20px; --bs-btn-padding-x: 16px; --bs-btn-padding-y: 8px; --bs-btn-border-radius: 6px; font-weight: 500; }
+.btn-outline.theme-secondary { --bs-btn-color: #cbd5e1; --bs-btn-border-color: #334155; }
+
+/* Dialog tertutup tidak mengambil ruang atau menambah panjang halaman. */
+.dialog:not([open]) { display: none; }
+
+/* Status API dan gambar kosong memakai hidden, termasuk elemen yang punya d-flex. */
+[hidden] { display: none !important; }
+.review-text { white-space: pre-line; overflow-wrap: anywhere; }
+.cast-name, .cast-role { overflow-wrap: anywhere; }
+
+/* Di HP kecil, judul sedikit mengecil agar nyaman dibaca. Layout responsif
+   lainnya sudah ditangani sm:flex-row dan kolom grid di dalam HTML. */
+@media (max-width: 575.98px) {
+  .movie-title { font-size: 28px; }
+}

@@ -1,0 +1,144 @@
+<!doctype html>
+<!-- lang="id" membantu browser dan pembaca layar mengenali bahasa halaman. -->
+<html lang="id" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <!-- viewport membuat ukuran layout mengikuti lebar layar HP. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Detail film di Sinempak: sinopsis, pemeran, trailer, dan ulasan pengguna.">
+  <title>Detail Film — Sinempak</title>
+  <!-- Bootstrap 6 diambil dari CDN resmi yang sama dengan halaman awal.
+       detail.css melengkapi warna dan ukuran khusus desain. Butuh koneksi internet.
+       Dokumentasi kelas: https://getbootstrap.com/docs/6.0/ -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+  <link rel="stylesheet" href="detail.css">
+</head>
+<body>
+  <!-- Tautan aksesibilitas: muncul ketika pengguna menekan Tab. -->
+  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-5 bg-1 fg-white z-3" href="#konten">Lewati navigasi</a>
+
+  <!-- NAVBAR: logo mengikuti identitas halaman awal: tulisan tebal dan titik biru.
+       container-fluid membuat logo mengikuti tepi navbar; border-bottom memberi garis tipis. -->
+  <header class="brand-header border-bottom">
+    <nav class="navbar container-fluid brand-container" aria-label="Navigasi utama">
+      <a class="navbar-brand fw-bold m-0 p-0" href="index.html">Sinempak<span class="brand-dot">.</span></a>
+    </nav>
+  </header>
+
+  <main id="konten" aria-busy="true">
+    <!-- Status pemuatan dan error tampil sebelum data film diterima. -->
+    <div class="container movie-container" id="status-film" role="status" aria-live="polite">
+      <p id="pesan-film">Memuat detail film…</p>
+      <a href="katalog1.php" class="btn-outline theme-secondary">Kembali ke katalog</a>
+      <button type="button" class="btn-solid theme-primary" id="coba-lagi" hidden>Coba lagi</button>
+    </div>
+    <noscript><p class="container">Aktifkan JavaScript untuk memuat detail film dari katalog.</p></noscript>
+    <!-- BANNER: backdrop TMDB dipasang sebagai gambar dekoratif (alt kosong).
+         position-relative menjadi acuan posisi lapisan gradasi di atas gambar. -->
+    <div class="movie-banner position-relative overflow-hidden" id="banner-film" aria-hidden="true" hidden>
+      <img class="w-100 h-100 object-fit-cover" id="gambar-banner" alt="" width="1120" height="543" fetchpriority="high">
+      <div class="banner-fade position-absolute top-0 start-0 w-100 h-100"></div>
+    </div>
+
+    <!-- CONTAINER: membatasi lebar menjadi 960px. gap memberi jarak antarseksi.
+         Konten diisi dari TMDB sesuai parameter id pada URL. -->
+    <div class="container movie-container d-flex flex-column" id="data-film" hidden>
+      <!-- INFORMASI FILM: flex-column menumpuk di HP; sm:flex-row menyejajarkan
+           poster dan teks mulai lebar 576px. gap-7 berarti jarak 24px. -->
+      <section class="d-flex flex-column sm:flex-row align-items-start gap-7" aria-labelledby="judul-film">
+        <img class="movie-poster rounded-2 border shadow-sm object-fit-cover flex-shrink-0" id="poster-film" alt="Poster film" hidden width="180" height="270">
+        <div class="d-flex flex-column align-items-start gap-1">
+          <!-- h1 adalah judul utama; setiap halaman sebaiknya punya satu h1. -->
+          <h1 class="movie-title fw-bold fg-white m-0" id="judul-film">Memuat film…</h1>
+          <p class="movie-meta pt-1 mb-0" id="meta-film"></p>
+          <!-- Ikon dekoratif memakai alt kosong; angka rating tetap terbaca. -->
+          <p class="d-flex align-items-center gap-3 m-0" id="rating-film">
+            <img src="assets/sinempak/star.svg" alt="" width="14.0312" height="13.375">
+            <span class="fw-semibold fg-white" id="nilai-rating"></span><span class="small fg-2">/10</span>
+          </p>
+          <p class="small fg-2 m-0">Tanggal rilis: <time id="rilis-film"></time></p>
+          <!-- btn-solid dan theme-primary menyediakan warna, hover, fokus, dan bentuk tombol.
+               Trailer TMDB untuk film terpilih dibuka di tab baru. -->
+          <a class="btn-solid theme-primary d-inline-flex align-items-center gap-3 mt-5" id="trailer-film" hidden target="_blank" rel="noopener noreferrer" aria-label="Tonton trailer di YouTube, tab baru">
+            <img src="assets/sinempak/play.svg" alt="" width="8.25" height="10.5">Tonton Trailer
+          </a>
+        </div>
+      </section>
+
+      <!-- SINOPSIS: h2 menandai bagian di bawah judul film.
+           Tidak memakai pemisah baris manual agar paragraf menyesuaikan layar. -->
+      <section aria-labelledby="judul-sinopsis">
+        <h2 class="section-title fw-bold fg-white mb-5" id="judul-sinopsis">Sinopsis</h2>
+        <p class="synopsis mb-0" id="sinopsis-film"></p>
+      </section>
+
+      <!-- PEMERAN: row adalah baris Bootstrap. col-12 = satu orang per baris di HP
+           kecil; sm:col-6 = dua kolom; lg:col-3 = empat kolom di desktop.
+           g-5 memberi jarak antarkolom. rounded-circle membulatkan foto. -->
+      <section aria-labelledby="judul-pemeran">
+        <h2 class="section-title fw-bold fg-white mb-5" id="judul-pemeran">Pemeran</h2>
+        <!-- Daftar pemeran dibuat dari credits TMDB oleh detail.js. -->
+        <ul class="row g-5 list-unstyled mb-0" id="pemeran-film"></ul>
+      </section>
+
+      <!-- border-top menggambar pemisah tanpa gambar tambahan. -->
+      <div class="border-top" role="separator"></div>
+
+      <!-- ULASAN: label for harus sama dengan id input agar label bisa diklik.
+           Ini prototipe HTML; belum ada endpoint untuk menyimpan ulasan.
+           Tombol membuka dialog Bootstrap, tidak mengirim data ke server. -->
+      <section aria-labelledby="judul-ulasan">
+        <h2 class="section-title fw-bold fg-white mb-7" id="judul-ulasan">Ulasan Pengguna</h2>
+        <form class="review-form d-flex flex-column gap-5" aria-label="Tulis ulasan film">
+          <div>
+            <label class="form-label small fw-medium" for="rating">Beri Rating</label>
+            <!-- form-control memberi tampilan dropdown Bootstrap; value adalah nilai pilihan. -->
+            <select class="form-control rating-select" id="rating" name="rating">
+              <option value="10">★ 10/10 - Mahakarya</option>
+              <option value="9">★ 9/10 - Luar biasa</option>
+              <option value="8">★ 8/10 - Sangat bagus</option>
+              <option value="7">★ 7/10 - Bagus</option>
+              <option value="6">★ 6/10 - Cukup bagus</option>
+              <option value="5">★ 5/10 - Biasa saja</option>
+              <option value="4">★ 4/10 - Kurang bagus</option>
+              <option value="3">★ 3/10 - Buruk</option>
+              <option value="2">★ 2/10 - Sangat buruk</option>
+              <option value="1">★ 1/10 - Mengecewakan</option>
+            </select>
+          </div>
+          <div class="pb-1">
+            <label class="form-label small fw-medium" for="ulasan">Tulis Ulasan</label>
+            <textarea class="form-control" id="ulasan" name="ulasan" rows="3" placeholder="Bagaimana tanggapan Anda tentang film ini?"></textarea>
+          </div>
+          <!-- data-bs-toggle dan data-bs-target mengaktifkan dialog tanpa JS buatan sendiri. -->
+          <div><button class="btn-solid theme-primary" type="button" data-bs-toggle="dialog" data-bs-target="#info-ulasan">Kirim Ulasan</button></div>
+        </form>
+
+        <!-- DAFTAR ULASAN: article memisahkan setiap ulasan secara semantik.
+             justify-content-between menaruh rating di kanan; flex-wrap mencegah
+             nama dan tanggal bertumpuk pada layar yang sempit. -->
+        <p class="small fg-2 mt-7" id="status-ulasan" role="status">Memuat ulasan TMDB…</p>
+        <div class="review-list pt-3" id="daftar-ulasan"></div>
+        <!-- Tombol outline memakai border tanpa latar penuh, sesuai Figma. -->
+        <button class="btn-outline theme-secondary mt-7" type="button" id="ulasan-lain" hidden>Lihat ulasan lainnya</button>
+      </section>
+    </div>
+  </main>
+
+  <!-- DIALOG: Bootstrap 6 memakai elemen dialog native untuk fokus keyboard,
+       backdrop, dan tombol Escape. data-bs-dismiss menutup dialog tanpa JS sendiri. -->
+  <dialog class="dialog" id="info-ulasan" aria-labelledby="judul-info" data-bs-theme="dark">
+    <div class="dialog-header">
+      <h2 class="dialog-title text-xl" id="judul-info">Ulasan film</h2>
+      <button type="button" class="btn-close" data-bs-dismiss="dialog" aria-label="Tutup"></button>
+    </div>
+    <div class="dialog-body">Pengiriman ulasan Sinempak belum tersedia. Tulisan Anda belum disimpan.</div>
+    <div class="dialog-footer"><button class="btn-solid theme-primary" type="button" data-bs-dismiss="dialog">Mengerti</button></div>
+  </dialog>
+
+  <!-- Bundle resmi Bootstrap mengurus dialog dan fokus keyboard.
+       detail.js mengambil data film melalui film_api.php tanpa mengekspos token. -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+  <script src="detail.js" defer></script>
+</body>
+</html>
