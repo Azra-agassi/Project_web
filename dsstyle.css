@@ -1,0 +1,37 @@
+[data-bs-theme="dark"] {
+    /* Latar dan teks. */
+    --bs-body-bg: #0f172a;
+    --bs-body-color: #f8fafc;
+    --bs-body-color-rgb: 248, 250, 252;
+
+    --bs-secondary-color: #cbd5e1;
+    --bs-secondary-color-rgb: 203, 213, 225;
+
+    --bs-secondary-bg: #162238;
+    --bs-secondary-bg-rgb: 22, 34, 56;
+
+    --bs-tertiary-bg: #162238;
+    --bs-tertiary-bg-rgb: 22, 34, 56;
+
+    --bs-border-color: #334155;
+    --bs-border-color-translucent: rgba(148, 163, 184, 0.2);
+
+    /* Aksen biru. */
+    --bs-primary: #3b82f6;
+    --bs-primary-rgb: 59, 130, 246;
+    --bs-primary-bg-subtle: #172e54;
+    --bs-primary-border-subtle: #285394;
+    --bs-primary-text-emphasis: #93c5fd;
+
+    --bs-link-color: #93c5fd;
+    --bs-link-hover-color: #bfdbfe;
+}
+
+body {
+    min-height: 100dvh;
+}
+
+.navbar,
+footer {
+    background-color: #020617 !important;
+}
